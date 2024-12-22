@@ -10,6 +10,7 @@ export const serverConfig: ServerConfig = {
     bots: [
         {
             selfId: 0,
+            name: "bot",
             platform: ImPlatformEnum.QQ,
             protocol: BotProtocolEnum.Onebot,
             endpoint: "http://localhost:3000",

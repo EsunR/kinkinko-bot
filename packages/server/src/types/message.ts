@@ -19,6 +19,8 @@ export interface UniMsgEvent {
     imageContent: string
     /** 回复消息的 id */
     replyMsgId?: number
+    /** 是否是与机器人交互的消息，如果为空则与机器人无关 */
+    toBot?: number
     /** 以 onebot 协议的数据格式存放完整的消息数据 */
     msgArray: {
         values: OnebotMessageArray

@@ -1,11 +1,14 @@
+import { getChatGroupTable } from "@/models"
 import { BotProtocolEnum, ImPlatformEnum } from "@/types/common"
 import { UniMsgEvent } from "@/types/message"
+import { getTextContent } from "@/utils/message"
 import { Onebot, OnebotMessageArray, ReplyMessage } from "@kinkinko/onebot-sdk"
 
 export interface BotConfig {
     platform: ImPlatformEnum
     protocol: BotProtocolEnum
     selfId: number
+    name: string
     endpoint: string
 }
 
@@ -17,12 +20,14 @@ export class Bot {
     public platform: BotConfig["platform"]
     public protocol: BotConfig["protocol"]
     public selfId: BotConfig["selfId"]
+    public name: BotConfig["name"]
     public sdk: Onebot | null = null
 
     constructor(config: BotConfig) {
         this.platform = config.platform
         this.protocol = config.protocol
         this.selfId = config.selfId
+        this.name = config.name
         this._endpoint = config.endpoint
 
         // Initialize SDK
@@ -37,6 +42,22 @@ export class Bot {
                 group_id: groupId,
                 message: msg,
             })
+            const groupChatTable = getChatGroupTable(this.platform, groupId)
+            if (groupChatTable && res?.message_id) {
+                const replyMsg = msg.find((item) => item.type === "reply")
+                await groupChatTable.create({
+                    id: res?.message_id,
+                    userId: this.selfId,
+                    userName: this.name,
+                    msgArray: {
+                        values: msg,
+                    },
+                    msgRaw: JSON.stringify(msg),
+                    textContent: getTextContent(msg),
+                    replyMsgId: replyMsg ? +replyMsg.data.id : undefined,
+                    imageContent: "",
+                })
+            }
             return res?.message_id
         }
     }

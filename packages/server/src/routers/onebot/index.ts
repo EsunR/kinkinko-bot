@@ -1,4 +1,5 @@
 import ResBody from "@/constructors/ResBody"
+import { chatGpt } from "@/instances/apps/chatGpt"
 import { chatStat } from "@/instances/apps/chatStat"
 import { botMap } from "@/instances/bot"
 import { logger } from "@/utils/log"
@@ -23,7 +24,13 @@ router.post("/webhook", async (ctx) => {
 
     if (body.post_type === PostTypeEnum.Message) {
         const uniMsgEvent = getUniMsgEvent(body)
-        chatStat.receiveMessage(uniMsgEvent, bot)
+        //  消息记录
+        await chatStat.receiveMessage(uniMsgEvent, bot)
+
+        // 如果是与机器人互动的消息
+        if (uniMsgEvent.toBot) {
+            chatGpt.receiveMessage(uniMsgEvent, bot)
+        }
     }
 
     ctx.body = new ResBody({

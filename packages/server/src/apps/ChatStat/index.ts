@@ -7,7 +7,7 @@ export class ChatStat {
 
     async receiveMessage(msg: UniMsgEvent, bot: Bot) {
         if (msg.groupId) {
-            this._handleGroupMessage(msg, bot)
+            await this._handleGroupMessage(msg, bot)
         }
     }
 

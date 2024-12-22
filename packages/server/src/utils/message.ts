@@ -12,6 +12,16 @@ import {
  */
 export function getUniMsgEvent(originMsgEvent: OnebotMessageEvent) {
     // onebot 协议转换
+    /**
+     * 是是否与机器人的对话，判断依据:
+     * 1. 消息中是否有 at 机器人的内容
+     * 2. 是否是私聊对话
+     */
+    const isToBot =
+        originMsgEvent.message.some(
+            (msg) =>
+                msg.type === "at" && +msg.data.qq === originMsgEvent.self_id,
+        ) || !("group_id" in originMsgEvent)
     return {
         protocol: "onebot",
         platform: "qq",
@@ -24,6 +34,7 @@ export function getUniMsgEvent(originMsgEvent: OnebotMessageEvent) {
         replyMsgId:
             originMsgEvent.message.find((msg) => msg.type === "reply")?.data
                 .id ?? undefined,
+        toBot: isToBot ? originMsgEvent.self_id : undefined,
         msgArray: {
             values: originMsgEvent.message,
         },

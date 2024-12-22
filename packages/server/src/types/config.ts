@@ -12,3 +12,11 @@ export interface ServerConfig {
         database: string
     }
 }
+
+export interface AppConfig {
+    chatgpt: {
+        baseURL: string
+        model: string
+        apiKey: string
+    }
+}
