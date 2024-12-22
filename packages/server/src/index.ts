@@ -5,7 +5,7 @@ import { serverConfig } from "@/utils/config"
 import { logger } from "@/utils/log"
 import cors from "@koa/cors"
 import Koa from "koa"
-import KoaBody from "koa-body"
+import {koaBody} from "koa-body"
 import KoaLogger from "koa-logger"
 import Router from "koa-router"
 import { initDb } from "./models"
@@ -23,7 +23,7 @@ async function main() {
     app.use(errorHandler())
     app.use(cors())
     app.use(
-        KoaBody({
+        koaBody({
             multipart: true,
             formidable: {
                 maxFieldsSize: 2000 * 1024 * 1024,

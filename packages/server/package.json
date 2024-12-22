@@ -4,18 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon ./src/index.ts"
+    "dev": "cross-env NODE_ENV=development nodemon ./src/index.ts",
+    "build": "rm -rf dist && node rollup.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
     "@types/koa": "^2.15.0",
     "@types/koa-logger": "^3.1.5",
     "@types/koa-router": "^7.4.8",
     "@types/koa__cors": "^5.0.0",
     "cross-env": "^7.0.3",
+    "esbuild": "^0.24.2",
     "nodemon": "^3.1.9",
+    "rollup": "^4.29.1",
+    "rollup-plugin-esbuild": "^6.1.1",
+    "rollup-plugin-node-externals": "^8.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0"
   },
