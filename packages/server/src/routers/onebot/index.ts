@@ -23,7 +23,7 @@ router.post("/webhook", async (ctx) => {
     }
 
     if (body.post_type === PostTypeEnum.Message) {
-        const uniMsgEvent = getUniMsgEvent(body)
+        const uniMsgEvent = await getUniMsgEvent(body)
         //  消息记录
         await chatStat.receiveMessage(uniMsgEvent, bot)
 

@@ -1,6 +1,8 @@
 import { AxiosInstance } from "axios"
 import { OnebotConfig } from "./types"
 import {
+    GetFileReq__ONLYNAPCAT,
+    GetFileRes__ONLYNAPCAT,
     GetGroupListRes,
     SendGroupMsgReq,
     SendGroupMsgRes,
@@ -40,6 +42,13 @@ export class Onebot {
     public async getGroupList() {
         const res = await this._request.get("/get_group_list")
         return res.data?.data as GetGroupListRes
+    }
+
+    public async getFile__ONLYNAPCAT(req: GetFileReq__ONLYNAPCAT) {
+        const res = await this._request.get("/get_file", {
+            params: req,
+        })
+        return res.data?.data as GetFileRes__ONLYNAPCAT
     }
 }
 

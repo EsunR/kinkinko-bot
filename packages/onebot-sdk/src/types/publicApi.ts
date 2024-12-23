@@ -44,3 +44,15 @@ export type GetGroupListRes = {
     member_count: number
     max_member_count: number
 }[]
+
+export interface GetFileReq__ONLYNAPCAT {
+    file_id: string;
+}
+
+export interface GetFileRes__ONLYNAPCAT {
+    file: string;
+    url: string;
+    file_size: number;
+    file_name: string;
+    base64: string;
+}

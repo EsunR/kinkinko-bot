@@ -40,6 +40,8 @@ export interface ImageMessage extends BaseMessage {
     data: {
         /** 图片文件名 */
         file: string
+        /** 非 onebot11 标准字段 */
+        file_id?: string
         /** 图片类型，flash 表示闪照，无此参数表示普通图片 */
         type?: "flash"
         /** 图片 URL */

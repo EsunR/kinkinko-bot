@@ -46,6 +46,9 @@ importers:
       '@koa/cors':
         specifier: ^5.0.0
         version: 5.0.0
+      axios:
+        specifier: ^1.7.9
+        version: 1.7.9
       koa:
         specifier: ^2.15.3
         version: 2.15.3

@@ -1,7 +1,7 @@
 import { getChatGroupTable } from "@/models"
 import { BotProtocolEnum, ImPlatformEnum } from "@/types/common"
 import { UniMsgEvent } from "@/types/message"
-import { getTextContent } from "@/utils/message"
+import { getMsgTextContent } from "@/utils/message"
 import { Onebot, OnebotMessageArray, ReplyMessage } from "@kinkinko/onebot-sdk"
 
 export interface BotConfig {
@@ -13,6 +13,8 @@ export interface BotConfig {
 }
 
 export type BotMessageArray = OnebotMessageArray
+
+export type BotMessage = OnebotMessageArray[number]
 
 export class Bot {
     private _endpoint: BotConfig["endpoint"]
@@ -53,7 +55,7 @@ export class Bot {
                         values: msg,
                     },
                     msgRaw: JSON.stringify(msg),
-                    textContent: getTextContent(msg),
+                    textContent: getMsgTextContent(msg),
                     replyMsgId: replyMsg ? +replyMsg.data.id : undefined,
                     imageContent: "",
                 })
